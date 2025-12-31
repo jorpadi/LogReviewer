@@ -9,6 +9,7 @@ in Engine / Laser / Workflow systems using pluggable checkers.
 - Stateful and stateless checkers
 - Time-based anomaly detection (uptime gaps)
 - Extensible domain separation (engine, laser, common)
+- Output files such as: text, csv, png and word or pdf.
 
 ## Project Status
 Early development – architecture and foundations in progress.
