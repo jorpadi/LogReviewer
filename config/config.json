@@ -1,0 +1,62 @@
+{
+  "main_logs_path": "C:\\Users\\jpalma\\Documents\\LogsDataset\\UFB1",
+
+  "uptime_threshold": 600,
+
+  "start_date": "2025-11-22",
+  "end_date": "2025-11-22",
+
+  "timestamp_patterns": [
+    "\\[(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3})\\]",
+    "\\[(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2})\\]",
+    "(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2},\\d{3})",
+    "\\[(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2},\\d{3})\\]"
+  ],
+
+  "Engine": {
+    "checkers": {
+      "startup": true,
+      "shutdown": true,
+      "errors": true,
+      "finalization": true,
+      "task_time": true,
+      "phase_time": true,
+      "licence_plates_flow": true
+
+    },
+    "outputs": {
+      "csv_export": true,
+      "summaries": true
+    }
+  },
+
+  "ETLAgent": {
+    "checkers": {
+      "events_sended": true,
+      "errors": true
+    },
+    "outputs": {
+      "csv_export": true
+    }
+  },
+
+  "LSA": {
+    "checkers": {
+      "laser_errors": true,
+      "missing_frames": true
+    },
+    "outputs": {
+      "summary": true
+    }
+  },
+
+  "WebService": {
+    "checkers": {
+      "licence_plate_reception": true,
+      "timeouts": true
+    },
+    "outputs": {
+      "csv_export": true
+    }
+  }
+}
