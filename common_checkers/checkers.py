@@ -1,5 +1,6 @@
 from datetime import datetime
 from dataclasses import dataclass
+from typing import Optional, Dict, Any
 
 @dataclass
 class Finding:
@@ -8,6 +9,7 @@ class Finding:
     timestamp: datetime
     module: str
     message: str
+    data: Optional[Dict[str, Any]] = None
 
 class BaseChecker:
     name = "base"
@@ -29,6 +31,32 @@ class ErrorChecker(BaseChecker):
                 severity="HIGH",
                 timestamp=entry.datetime,
                 module=entry.module,
+                message=entry.message),
+            ]
+        return []
+
+class ErrorMessageChecker(BaseChecker):
+    name = "error_message_checker"
+
+    ERROR_KEYWORDS = (
+        "error",
+        "ERROR"
+        "failed",
+        "exception",
+        "fatal",
+        "abort",
+    )
+
+    def process(self, entry):
+
+        msg = entry.message.lower()
+
+        if any(keyword in msg for keyword in self.ERROR_KEYWORDS):
+            return  [Finding(
+                checker=self.name,
+                severity="HIGH",
+                timestamp=entry.datetime,
+                module=entry.module,
                 message=entry.message)]
         return []
 
@@ -39,7 +67,28 @@ class WarningChecker(BaseChecker):
         if entry.level == "WARN" or entry.level == "WARNING":
             return [Finding(
                 checker=self.name,
-                severity="HIGH",
+                severity="MEDIUM",
+                timestamp=entry.datetime,
+                module=entry.module,
+                message=entry.message)]
+        return []
+
+class WarningMessageChecker(BaseChecker):
+    name = "warning_message_checker"
+
+    WARNING_KEYWORDS = (
+        "warning",
+        "timeout",
+        "offline"
+    )
+
+    def process(self, entry):
+        msg = entry.message.lower()
+
+        if any(keyword in msg for keyword in self.WARNING_KEYWORDS):
+            return [Finding(
+                checker=self.name,
+                severity="MEDIUM",
                 timestamp=entry.datetime,
                 module=entry.module,
                 message=entry.message)]
@@ -71,7 +120,9 @@ class UptimeChecker(BaseChecker):
 def checkers():
     common_checkers = [
         ErrorChecker(),
+        ErrorMessageChecker(),
         WarningChecker(),
+        WarningMessageChecker(),
         UptimeChecker(threshold_sec=300),
     ]
     return common_checkers

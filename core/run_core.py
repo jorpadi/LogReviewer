@@ -1,4 +1,5 @@
 from common_checkers import checkers
+from engine_checkers.main_checkers import engine_checkers_main
 from datetime import datetime
 import re
 from dataclasses import dataclass
@@ -94,13 +95,19 @@ def log_file_iterator(file_path, logs_to_work, parameters):
     log_type = parameters[1]
 
     common_checkers = checkers.checkers()
+    engine_checkers = engine_checkers_main()
+
+    # decice active checkers
+    active_checkers = list(common_checkers)
+    if log_type == 'engine':
+        active_checkers.extend(engine_checkers)
 
     for log_file in range(len(logs_to_work)):
     #for log_file in logs_to_work:
         full_log_path = os.path.join(file_path,logs_to_work[log_file])
         print(f"Processing {full_log_path}")
 
-        findings = log_parser(full_log_path, common_checkers, log_type)
+        findings = log_parser(full_log_path, active_checkers, log_type)
         all_findings.extend(findings)
 
     return all_findings
