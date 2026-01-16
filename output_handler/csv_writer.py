@@ -12,6 +12,7 @@ class CSVWriter:
                 "severity",
                 "checker",
                 "module",
+                "log_name",
                 "message"
             ])
 
@@ -21,5 +22,6 @@ class CSVWriter:
                     fnd.severity,
                     fnd.checker,
                     fnd.module,
+                    fnd.log_name,
                     fnd.message
                 ])

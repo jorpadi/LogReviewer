@@ -1,4 +1,4 @@
-from core.run_log_revisor import run_batch_log
+from core.run_core import run_batch_log
 
 def main():
     run_batch_log()

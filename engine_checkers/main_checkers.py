@@ -10,12 +10,13 @@ class Finding:
     timestamp: datetime
     module: str
     message: str
+    log_name: str
     data: Optional[Dict[str, Any]] = None
 
 class BaseChecker:
     name = "base"
 
-    def process(self, entry):
+    def process(self, entry, log_name):
         """
         Receives a LogEntry
         Returns list[Finding]
@@ -30,7 +31,7 @@ class CaptureTriggerChecker(BaseChecker):
         re.IGNORECASE
     )
 
-    def process(self, entry):
+    def process(self, entry, log_name):
         if self.PATTERN.search(entry.message):
             return [Finding(
                 checker=self.name,
@@ -38,6 +39,7 @@ class CaptureTriggerChecker(BaseChecker):
                 timestamp=entry.datetime,
                 module=entry.module,
                 message=entry.message,
+                log_name=log_name,
                 data= None
             )]
         return []
@@ -50,7 +52,7 @@ class CaptureFinalizationChecker(BaseChecker):
         re.IGNORECASE
     )
 
-    def process(self, entry):
+    def process(self, entry, log_name):
         match = self.PATTERN.search(entry.message)
         if not match:
             return []
@@ -66,6 +68,7 @@ class CaptureFinalizationChecker(BaseChecker):
             timestamp=entry.datetime,
             module=entry.module,
             message=f"Event {event_id} finalized as {finalization}",
+            log_name=log_name,
             data={
                 "event_id": event_id,
                 "finalization": finalization

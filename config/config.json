@@ -1,10 +1,9 @@
 {
-  "main_logs_path": "C:\\Users\\jpalma\\Documents\\LogsDataset\\UFB1",
+  "main_logs_path": "C:\\Users\\jpalma\\Documents\\LogsDataset\\CNA3",
+  "uptime_threshold": 60,
 
-  "uptime_threshold": 600,
-
-  "start_date": "2025-11-22",
-  "end_date": "2025-11-22",
+  "start_date": "2026-01-08",
+  "end_date": "2026-01-09",
 
   "timestamp_patterns": [
     "\\[(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3})\\]",
@@ -58,5 +57,6 @@
     "outputs": {
       "csv_export": true
     }
-  }
+  },
+  "FoldersToCheck": ["Engine","LSA","AgenteETL","WebService"]
 }
