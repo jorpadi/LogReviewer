@@ -3,6 +3,7 @@
 A modular log analysis tool designed to **review, validate, and summarize system logs**
 from Engine, Agente ETL, and related services over a defined time period.
 
+
 This first release focuses on **batch log ingestion, checker execution, and CSV-based outputs**
 to support operational analysis and troubleshooting.
 
@@ -167,4 +168,13 @@ This allows repeatable, non-interactive batch execution.
 * Real-time or streaming analysis
 * Dashboard integration
 * Advanced correlation between domains
-
+=======
+## Key Features
+- Structured log parsing
+- Plugin-based checker architecture
+- Stateful and stateless checkers
+- Time-based anomaly detection (uptime gaps)
+- Extensible domain separation (engine, laser, common)
+- Output files such as: text, csv, png and report in word or pdf. (upcoming)
+- Check complete flow for event (upcoming - cross log revisor)
+- Check phase times (upcoming - engine only) 
